@@ -20,8 +20,8 @@ jobs:
       #   run: npm install -g angular-cli-ghpages
       - name: Instala dependências
         run: npm install
-      - name: Build
-        run: ng build --configuration production
+      # - name: Build
+      #   run: ng build --configuration production
       - name: Deploy
         env: 
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
