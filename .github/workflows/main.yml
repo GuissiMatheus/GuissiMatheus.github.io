@@ -1,0 +1,28 @@
+name: Build e Deploy
+on: 
+  push:
+    branches: ["master"]
+jobs:
+  Build-Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check-out pro repositório
+        uses: actions/checkout@v3
+      - name: Configura usuário/e-mail
+        run: |
+          git config user.name "Matheus Guissi"
+          git config user.email "guissimatheus@gmail.com"
+      - name: Configura a versão do Node
+        uses: actions/setup-node@v3
+      - name: Instala o Angular
+        run: npm install -g @angular/cli@13
+      - name: Instala o Angular CLI - GitHub Pages
+        run: npm install -g angular-cli-ghpages
+      - name: Instala dependências
+        run: npm install
+      - name: Build
+        run: ng build --configuration production
+      - name: Deploy
+        env: 
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: ngh --dir dist/matheusguissi
